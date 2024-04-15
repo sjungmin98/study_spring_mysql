@@ -1,43 +1,36 @@
 package com.example.co_templates.quests.services;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.co_templates.daos.ShareDao;
-
-import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 
 @Service
 public class QuestBoardService {
     @Autowired
     ShareDao shareDao;
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
 
-    public List<Map<String, Object>> getList(String sqlMapId, Map<String, Object> dataMap) {
-        return sqlSessionTemplate.selectList(sqlMapId, dataMap);
+    public HashMap<String, Object> create(HashMap<String, Object> boardData) {
+        shareDao.insert("QuestBoard.insertBoard", boardData);
+        return boardData;
     }
 
-    public Map<String, Object> getOne(String sqlMapId, Object parameter) {
-        return sqlSessionTemplate.selectOne(sqlMapId, parameter);
+    public HashMap<String, Object> get(String id) {
+        return (HashMap<String, Object>) shareDao.getOne("QuestBoard.selectBoardById", id);
     }
 
-    public int insert(String sqlMapId, Map<String, Object> dataMap) {
-        return sqlSessionTemplate.insert(sqlMapId, dataMap);
+    public int update(String id, HashMap<String, Object> boardData) {
+        return (Integer) shareDao.update("QuestBoard.updateBoard", boardData);
     }
 
-    public int update(String sqlMapId, Map<String, Object> dataMap) {
-        return sqlSessionTemplate.update(sqlMapId, dataMap);
+    public int delete(String id) {
+        return (Integer) shareDao.delete("QuestBoard.deleteBoard", id);
     }
 
-    public int delete(String sqlMapId, Object parameter) {
-        return sqlSessionTemplate.delete(sqlMapId, parameter);
-    }
-
-    public Object createBoard(Map<String, Object> boardData) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createBoard'");
+    public List<HashMap<String, Object>> list(HashMap<String, Object> dataMap) {
+        String sqlId = "QuestBoard.listBoards";
+        List list = (List<HashMap<String, Object>>) shareDao.getList(sqlId, dataMap);
+        return list;
     }
 }

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BoardCode">
+<mapper namespace="QuestBoard">
 
-    <insert id="insertBoard" parameterType="map">
+    <insert id="insertBoard" parameterType="hashmap">
         INSERT INTO BOARDS (PK_BOARDS, TITLE, CONTENTS, WRITER_ID, CREATE_DATE, PARENT_BOARDS)
         VALUES (#{pk_boards}, #{title}, #{contents}, #{writer_id}, CURRENT_TIMESTAMP, #{parent_boards})
     </insert>
 
-    <select id="selectBoardById" parameterType="string" resultType="map">
+    <select id="selectBoardById" parameterType="hashmap" resultType="hashmap">
         SELECT * FROM BOARDS WHERE PK_BOARDS = #{pk_boards}
     </select>
 
-    <update id="updateBoard" parameterType="map">
-        UPDATE BOARDS SET TITLE = #{title}, CONTENTS = #{contents}, WRITER_ID = #{writer_id}, PARENT_BOARDS = #{parent_boards}
+    <update id="updateBoard" parameterType="hashmap">
+        UPDATE BOARDS 
+        SET TITLE = #{title}, CONTENTS = #{contents}, WRITER_ID = #{writer_id}, PARENT_BOARDS = #{parent_boards}
         WHERE PK_BOARDS = #{pk_boards}
     </update>
 
-    <delete id="deleteBoard" parameterType="string">
+    <delete id="deleteBoard" parameterType="hashmap">
         DELETE FROM BOARDS WHERE PK_BOARDS = #{pk_boards}
     </delete>
+
+    <select id="listBoards" parameterType="Map" resultType="Map">
+        SELECT * FROM BOARDS;
+	</select>
 </mapper>
