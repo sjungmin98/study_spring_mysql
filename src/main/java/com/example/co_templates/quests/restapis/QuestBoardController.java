@@ -44,6 +44,16 @@ public class QuestBoardController {
         return ResponseEntity.ok(questVisitorsService.addVisitor(visitorData));
     }
 
+    @GetMapping("/visitors/{id}")
+    public ResponseEntity<Map<String, Object>> getVisitor(@PathVariable String id) {
+        return ResponseEntity.ok(questVisitorsService.getVisitor(id));
+    }
+
+    @PutMapping("/visitors/{id}")
+    public ResponseEntity<Boolean> updateVisitor(@PathVariable String id, @RequestBody Map<String, Object> visitorData) {
+        return ResponseEntity.ok(questVisitorsService.updateVisitor(visitorData));
+    }
+
     @DeleteMapping("/visitors/{id}")
     public ResponseEntity<Boolean> deleteVisitor(@PathVariable String id) {
         return ResponseEntity.ok(questVisitorsService.deleteVisitor(id));

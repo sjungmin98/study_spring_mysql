@@ -17,6 +17,15 @@ public class QuestVisitorsService {
         return visitorData;
     }
 
+    public Map<String, Object> getVisitor(String id) {
+        return shareDao.getOne("QuestVisitorsMapper.selectVisitor", id);
+    }
+
+    public boolean updateVisitor(Map<String, Object> visitorData) {
+        int result = shareDao.update("QuestVisitorsMapper.updateVisitor", visitorData);
+        return result > 0;
+    }
+
     public boolean deleteVisitor(String id) {
         int result = shareDao.delete("QuestVisitorsMapper.deleteVisitor", id);
         return result > 0;

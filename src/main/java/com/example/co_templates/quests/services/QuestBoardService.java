@@ -1,33 +1,43 @@
 package com.example.co_templates.quests.services;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.co_templates.daos.ShareDao;
 
 import java.util.Map;
+import java.util.List;
 
 @Service
 public class QuestBoardService {
-
     @Autowired
-    private ShareDao shareDao;
+    ShareDao shareDao;
+    @Autowired
+    private SqlSessionTemplate sqlSessionTemplate;
 
-    public Map<String, Object> createBoard(Map<String, Object> boardData) {
-        shareDao.insert("QuestBoardMapper.insertBoard", boardData);
-        return boardData;
+    public List<Map<String, Object>> getList(String sqlMapId, Map<String, Object> dataMap) {
+        return sqlSessionTemplate.selectList(sqlMapId, dataMap);
     }
 
-    public Map<String, Object> getBoard(String id) {
-        return (Map<String, Object>) shareDao.getOne("QuestBoardMapper.selectBoard", id);
+    public Map<String, Object> getOne(String sqlMapId, Object parameter) {
+        return sqlSessionTemplate.selectOne(sqlMapId, parameter);
     }
 
-    public Map<String, Object> updateBoard(String id, Map<String, Object> boardData) {
-        shareDao.update("QuestBoardMapper.updateBoard", boardData);
-        return boardData;
+    public int insert(String sqlMapId, Map<String, Object> dataMap) {
+        return sqlSessionTemplate.insert(sqlMapId, dataMap);
     }
 
-    public boolean deleteBoard(String id) {
-        int result = shareDao.delete("QuestBoardMapper.deleteBoard", id);
-        return result > 0;
+    public int update(String sqlMapId, Map<String, Object> dataMap) {
+        return sqlSessionTemplate.update(sqlMapId, dataMap);
+    }
+
+    public int delete(String sqlMapId, Object parameter) {
+        return sqlSessionTemplate.delete(sqlMapId, parameter);
+    }
+
+    public Object createBoard(Map<String, Object> boardData) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createBoard'");
     }
 }
