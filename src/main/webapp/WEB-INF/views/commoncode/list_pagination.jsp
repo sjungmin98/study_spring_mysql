@@ -65,8 +65,13 @@
                             <th>DESCRIPTION</th>
                         </thead>
                         <tbody>
-                            <% ArrayList itemList=(ArrayList)request.getAttribute("itemList"); for(Object obj: itemList)
-                                { HashMap record=(HashMap) obj; %>
+                            <% 
+                                HashMap result = (HashMap) request.getAttribute("result");
+                                ArrayList itemList = (ArrayList) result.get("resultList");
+
+                                for(Object obj: itemList){ 
+                                    HashMap record=(HashMap) obj; 
+                            %>
                                 <tr>
                                     <td>
                                         <input type="checkbox" class="form-check-input" name="deleteIds" value='<%= record.get("PK_UNIQUE") %>'>
@@ -89,15 +94,15 @@
                 <!-- Pagination with buttons and query parameters -->
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item"><button class="page-link" type="submit" name="page"
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage"
                                 value="Previous">Previous</button></li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="1">1</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="1">1</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="2">2</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="2">2</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page" value="3">3</button>
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage" value="3">3</button>
                         </li>
-                        <li class="page-item"><button class="page-link" type="submit" name="page"
+                        <li class="page-item"><button class="page-link" type="submit" name="currentPage"
                                 value="Next">Next</button>
                         </li>
                     </ul>

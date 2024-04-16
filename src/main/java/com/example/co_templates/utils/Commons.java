@@ -1,4 +1,4 @@
-package com.example.co_templates.util;
+package com.example.co_templates.utils;
 
 import java.util.UUID;
 

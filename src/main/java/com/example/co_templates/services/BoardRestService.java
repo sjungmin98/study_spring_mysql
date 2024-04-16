@@ -7,8 +7,8 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.co_templates.util.Commons;
 import com.example.co_templates.daos.ShareDao;
+import com.example.co_templates.utils.Commons;
 
 @Service
 public class BoardRestService {
