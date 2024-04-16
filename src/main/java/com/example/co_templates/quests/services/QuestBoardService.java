@@ -11,26 +11,29 @@ public class QuestBoardService {
     @Autowired
     ShareDao shareDao;
 
-    public HashMap<String, Object> create(HashMap<String, Object> boardData) {
-        shareDao.insert("QuestBoard.insertBoard", boardData);
-        return boardData;
-    }
+    // public HashMap<String, Object> create(HashMap<String, Object> boardData) {
+    //     shareDao.insert("QuestBoard.insertBoard", boardData);
+    //     return boardData;
+    // }
 
-    public HashMap<String, Object> get(String id) {
-        return (HashMap<String, Object>) shareDao.getOne("QuestBoard.selectBoardById", id);
-    }
+    // public HashMap<String, Object> get(String id) {
+    //     return (HashMap<String, Object>) shareDao.getOne("QuestBoard.selectBoardById", id);
+    // }
 
-    public int update(String id, HashMap<String, Object> boardData) {
-        return (Integer) shareDao.update("QuestBoard.updateBoard", boardData);
-    }
+    // public int update(String id, HashMap<String, Object> boardData) {
+    //     return (Integer) shareDao.update("QuestBoard.updateBoard", boardData);
+    // }
 
-    public int delete(String id) {
-        return (Integer) shareDao.delete("QuestBoard.deleteBoard", id);
-    }
+    // public int delete(String id) {
+    //     return (Integer) shareDao.delete("QuestBoard.deleteBoard", id);
+    // }
 
-    public List<HashMap<String, Object>> list(HashMap<String, Object> dataMap) {
-        String sqlId = "QuestBoard.listBoards";
-        List list = (List<HashMap<String, Object>>) shareDao.getList(sqlId, dataMap);
-        return list;
+    public List<HashMap<String, Object>> searchBoards(HashMap<String, Object> params) {
+        String queryId = "QuestBoard.searchBoardsByTitle";
+        if ("content".equals(params.get("type"))) {
+            queryId = "QuestBoard.searchBoardsByContent";
+        }
+        List<HashMap<String, Object>> resultList = (List<HashMap<String, Object>>) shareDao.getList(queryId, params);
+        return resultList;
     }
 }

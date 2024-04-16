@@ -1,3 +1,4 @@
+<%@ page import="java.util.HashMap, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,10 +40,43 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>Search</h2>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search..." id="keydownEnter">
-                    <button class="btn btn-primary" type="button" onclick="carTableBody()">Go</button>
-                </div>
+                <form action="/commonCode/list" method="get">
+                    <%
+                        HashMap<String, Object> dataMap = (HashMap<String, Object>) request.getAttribute("dataMap");
+                        String search = "";
+                        if (dataMap != null && dataMap.get("Search") != null) {
+                            search = (String) dataMap.get("Search");
+                        }
+                    %>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="Search" value="<%= search %>" placeholder="Search..." id="keydownEnter">
+                        <button class="btn btn-primary">Go</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <th>PK_ID</th>
+                        <th>FK_ID</th>
+                        <th>NAME</th>
+                    </thead>
+                    <tbody>
+                        <%
+                            ArrayList itemList = (ArrayList) request.getAttribute("itemList");
+                            for(Object obj: itemList) {
+                                HashMap record = (HashMap) obj;                        
+                        %>   
+                        <tr>
+                            <td><%= record.get("PK_ID") %></td>
+                            <td><%= record.get("FK_ID") %></td>
+                            <td><%= record.get("NAME") %></td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

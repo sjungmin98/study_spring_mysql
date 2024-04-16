@@ -21,7 +21,12 @@
         DELETE FROM BOARDS WHERE PK_BOARDS = #{pk_boards}
     </delete>
 
-    <select id="listBoards" parameterType="Map" resultType="Map">
-        SELECT * FROM BOARDS;
-	</select>
+    <select id="searchBoardsByTitle" parameterType="Map" resultType="Map">
+        SELECT * FROM BOARDS WHERE TITLE REGEXP #{search}
+    </select>
+
+    <select id="searchBoardsByContent" parameterType="Map" resultType="Map">
+        SELECT * FROM BOARDS WHERE CONTENTS REGEXP #{search}
+    </select>
+
 </mapper>
