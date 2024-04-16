@@ -34,6 +34,6 @@ public class QuestBoardService {
             queryId = "QuestBoard.searchBoardsByContent";
         }
         List<HashMap<String, Object>> resultList = (List<HashMap<String, Object>>) shareDao.getList(queryId, params);
-        return resultList;
+         return resultList;
     }
 }

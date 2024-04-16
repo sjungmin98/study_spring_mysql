@@ -7,11 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.co_templates.daos.ShareDao;
+import com.example.co_templates.util.Commons;
 
 @Service
 public class CommonCodeService {
     @Autowired
     ShareDao shareDao;
+
+    @Autowired
+    Commons commons;
+
+    public Object selectMany(HashMap<String, Object> dataMap) {
+        // 여러개 가져오기
+        String sqlMapId = "CommonCode.selectBysearch";
+        Object list = shareDao.getList(sqlMapId, dataMap);
+        return list;
+    }
 
     public void callDao(){
         shareDao.getList(null, null);
